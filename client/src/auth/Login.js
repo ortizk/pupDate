@@ -25,7 +25,7 @@ class Login extends Component {
 		//THIS IS WERE WE CONNECT THE BACKEND
 		// this route matches the router auth route on the backend
 		// for axios, the first parameter is where we want to go, and the second is what the data we want to send
-		axios.post('/auth/login', this.state)
+		axios.post('http://localhost:3001/auth/login', this.state)
 		.then(result => {
 			console.log('SUCCESS', result);
 			// Add the newly received token to LS
@@ -34,7 +34,7 @@ class Login extends Component {
 			this.props.updateUser();
 		})
 		.catch(err => {
-			console.log('ERROR', err.response.data);
+			console.log('ERROR', err.response ? err.response.data : err);
 		});
 	}
 

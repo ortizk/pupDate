@@ -29,7 +29,7 @@ class App extends Component {
     // if there is a token in localStorage try to elevate it
     if(token){
       console.log('token found in ls', token);
-      axios.post('/auth/me/from/token', {
+      axios.post('http://localhost:3001/auth/me/from/token', {
         headers: { 'Authorization': `Bearer ${token}` }
       })
       .then(response => {

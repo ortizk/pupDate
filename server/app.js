@@ -1,30 +1,25 @@
 require('dotenv').config();
 var bodyParser = require('body-parser');
+var cors = require('cors');
 var express = require('express');
 var expressJWT = require('express-jwt');
-var favicon = require('serve-favicon');
 var logger = require('morgan');
 var mongoose = require('mongoose');
 var path = require('path');
 var app = express();
 
 // Mongoose connect
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/mernauth', {useMongoClient: true});
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/pupdate', {useMongoClient: true});
 
 // Set up middleware
-app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
+app.use(cors());
 app.use(bodyParser.json({limit: "50mb"}));
 app.use(bodyParser.urlencoded({extended: true}));
-app.use(express.static(path.resolve(__dirname, 'client', 'build')));
-
-app.use(function(req, res, next) {
-  // before every route, attach the flash messages and current user to res.locals
-  res.locals.currentUser = req.user;
-  next();
-});
 
 // Controllers
+app.use('/', require())
+app.use('/', require('./routes/dog'));
 app.use('/auth', expressJWT({
 	secret: process.env.JWT_SECRET,
 	getToken: function fromRequest(req){
@@ -40,9 +35,6 @@ app.use('/auth', expressJWT({
 	]
 }), require('./routes/auth'));
 
-app.get('*', function(req, res, next) {
-	// this is where in react it will live and be built
-	res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
-});
 
-module.exports = app;
+// module.exports = app;
+app.listen(process.env.PORT || 3001)
