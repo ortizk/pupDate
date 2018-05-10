@@ -6,6 +6,7 @@ require('dotenv').config();
 
 
 var SECRET_KEY = process.env.SECRET_KEY;
+var GSECRET_KEY = process.env.GSECRET_KEY;
 
 
 //-----FIND ALL THE ZIPS WITHIN 5 MILE RADIUS OF USER ZIP
@@ -27,6 +28,28 @@ router.post('/getdogsnearby', function(req, res){
 	})
 	
 });
+
+//-----GEOCODING API TO GET LONG AND LAT
+
+//need to access the address the user inputted at signup
+
+
+//convert that into a string that url understands
+// replace the following address with the user gotten from the db
+// var userInfo = { 
+//     address: '123 fake st',
+//     city: 'Seattle Way',
+//     state: 'WA'
+// };
+// let address = userInfo.address;
+// let city = userInfo.city;
+// let noSpaceAddress = address.split(' ').join('+');
+// let noSpaceCity = city.split(' ').join('+');
+// let state = userInfo.state;
+
+// console.log(`${noSpaceAddress},+${noSpaceCity},+${state}`);
+
+// https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=${GSECRET_KEY}
 
 
 
