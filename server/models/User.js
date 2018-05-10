@@ -1,6 +1,7 @@
-var mongoose = require('mongoose');
-var bcrypt = require('bcrypt');
-var Schema = mongoose.Schema;
+var bcrypt    = require('bcrypt');
+var Dogs      = require('./Dogs')
+var mongoose  = require('mongoose');
+var Schema    = mongoose.Schema;
 
 
 var userSchema = new mongoose.Schema({
@@ -44,7 +45,8 @@ userSchema.set('toJSON', {
       email: user.email,
       name: user.name,
       address: user.address,
-      zip: user.zip
+      zip: user.zip,
+      dogs: user.dogs
     };
     return returnJson;
   }

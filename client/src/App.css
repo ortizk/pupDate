@@ -26,6 +26,13 @@ nav a:hover {
   color: white;
   font-size: 11px;
 }
+.homePage {
+  background-image: url"./build/static/dogsPlayMain.jpg";
+  height: 600px;
+}
+.homePage h1 {
+  margin-top: 0;
+}
 
 /*DEFAULT STYLES*/
 /*

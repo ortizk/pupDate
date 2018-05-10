@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import AddDog from './addDog';
+import Search from './Search';
 
 class Profile extends Component {
 	render() {
@@ -9,6 +10,8 @@ class Profile extends Component {
 					<h1>Hello again, {this.props.user.name}!</h1>
 					<h3>Your email is {this.props.user.email}</h3>
 					<AddDog user={this.props.user} />
+					<h1>Search For Pups In Your Area</h1>
+					<Search />
 				</div>
 			);
 		}
