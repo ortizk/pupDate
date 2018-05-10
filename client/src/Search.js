@@ -16,14 +16,14 @@ class Search extends Component {
 
 	handleSubmit = (e) => {
 		e.preventDefault();
-		console.log('search form was submitted');
-		axios.get('http://localhost:3001/getdogsnearby', {zip: 98101})
+		console.log('this zip', this.state.zip);
+		axios.post('http://localhost:3001/getdogsnearby', {zip: this.state.zip})
 		.then(res => {
-			const results = res.data;
+			const results = res.data; 
 			console.log('Success from handleSubmit in Search', res.data);
 		})
 		.catch(err => {
-			console.log('error', err)
+			console.log('error', err);
 		});
 	}
 

@@ -31,14 +31,13 @@ class AddDog extends Component {
 
 	handleSubmit = (e) => {
 		e.preventDefault();
-		console.log('form was submitted', this.state);
+		console.log('add dog form was submitted', this.state, this.props.user);
 		//THIS IS WERE WE CONNECT THE BACKEND
 		// this route matches the router auth route on the backend
 		// for axios, the first parameter is where we want to go, and the second is what the data we want to send
 		axios.post('http://localhost:3001/profile', this.state)
 		.then(result => {
 			console.log('SUCCESS', result)
-
 			// this.props.updateDog(); //props must be passed when AddDog element is created
 		})
 		.catch(err => {

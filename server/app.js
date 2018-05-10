@@ -18,7 +18,7 @@ app.use(bodyParser.json({limit: "50mb"}));
 app.use(bodyParser.urlencoded({extended: true}));
 
 // Controllers
-app.use('/', require())
+app.use('/', require('./routes/zipApi'));
 app.use('/', require('./routes/dog'));
 app.use('/auth', expressJWT({
 	secret: process.env.JWT_SECRET,
