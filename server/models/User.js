@@ -1,6 +1,5 @@
-var bcrypt    = require('bcrypt');
-var Dogs      = require('./Dogs')
 var mongoose  = require('mongoose');
+var bcrypt    = require('bcrypt');
 var Schema    = mongoose.Schema;
 
 
@@ -28,13 +27,21 @@ var userSchema = mongoose.Schema({
     type: String,
     required: true
   },
+  city: {
+    type: String,
+    required: true
+  },
+  state: {
+    type: String,
+    required: true
+  },
   zip: {
     type: Number,
     required: true,
     minlength: 5,
   },
   dogs: [{type: Schema.Types.ObjectId, ref:'Dogs'} ]
-});
+})
 
 // Override 'toJSON' to prevent the password from being returned with the user
 // converting to json to send to react or any front end. But the front end doesn't need to know the password
@@ -45,6 +52,8 @@ userSchema.set('toJSON', {
       email: user.email,
       name: user.name,
       address: user.address,
+      city: user.city,
+      state: user.state,
       zip: user.zip,
       dogs: user.dogs
     };
@@ -66,6 +75,7 @@ userSchema.pre('save', function(next) {
   next();
 });
 
-var User = mongoose.model('User', userSchema);
+// var User = mongoose.model('User', userSchema);
 
-module.exports = User;
+// module.exports = User;
+module.exports = mongoose.model('User', userSchema);

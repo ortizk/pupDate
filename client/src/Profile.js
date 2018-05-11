@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import AddDog from './addDog';
 import Search from './Search';
+import Founduser from './foundUser';
 
 class Profile extends Component {
 	render() {
@@ -12,6 +13,9 @@ class Profile extends Component {
 					<AddDog user={this.props.user} />
 					<h1>Search For Pups In Your Area</h1>
 					<Search />
+					<div className="searchResults">
+						<Founduser />
+					</div>
 				</div>
 			);
 		}

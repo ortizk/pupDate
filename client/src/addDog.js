@@ -36,7 +36,8 @@ class AddDog extends Component {
 		// this route matches the router auth route on the backend
 		// for axios, the first parameter is where we want to go, and the second is what the data we want to send
 		let user = this.props.user
-		axios.post('http://localhost:3001/profile', this.state)
+		console.log(user);
+		axios.post('http://localhost:3001/profile', {dog: this.state, user: this.props.user})
 		.then(result => {
 			console.log('SUCCESS', result)
 			// this.props.updateDog(); //props must be passed when AddDog element is created

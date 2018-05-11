@@ -17,6 +17,7 @@ class Search extends Component {
 	handleSubmit = (e) => {
 		e.preventDefault();
 		console.log('this zip', this.state.zip);
+		console.log('this is the user', this.state.user);
 		axios.post('http://localhost:3001/getdogsnearby', {zip: this.state.zip})
 		.then(res => {
 			const results = res.data; 
