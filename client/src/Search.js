@@ -6,7 +6,8 @@ class Search extends Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			zip: ''
+			zip: '',
+			users: null
 		}
 	}
 
@@ -16,12 +17,13 @@ class Search extends Component {
 
 	handleSubmit = (e) => {
 		e.preventDefault();
-		console.log('this zip', this.state.zip);
-		console.log('this is the user', this.state.user);
 		axios.post('http://localhost:3001/getdogsnearby', {zip: this.state.zip})
 		.then(res => {
-			const results = res.data; 
+			// const results = res.data;
 			console.log('Success from handleSubmit in Search', res.data);
+			this.setState({
+				users: res.data
+			})
 		})
 		.catch(err => {
 			console.log('error', err);
@@ -29,6 +31,20 @@ class Search extends Component {
 	}
 
 	render() {
+		this.state.users
+		const results = this.state.users.map(users =>{
+			if(this.state.users && this.state.users.name){
+				return (
+					<div key={users.id}>
+						<h3>These are all the users in your area</h3>
+						<p>{this.state.users.name}</p>
+						<p>{this.state.users.email}</p>
+						<p>{this.state.users.dogs}</p>
+						<hr />
+					</div>
+				);
+			}
+		});
 		return(
 			<div>
 				<form onSubmit={this.handleSubmit}>
@@ -37,6 +53,9 @@ class Search extends Component {
 					</div>
 					<input type="submit" value="Get neighbouring zips" className="button" />
 				</form>
+				<div>
+					
+				</div>
 			</div>
 		);
 	}

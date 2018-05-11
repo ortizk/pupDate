@@ -1,6 +1,7 @@
 var mongoose  = require('mongoose');
 var bcrypt    = require('bcrypt');
 var Schema    = mongoose.Schema;
+var Dogs      = require('./Dogs')
 
 
 var userSchema = mongoose.Schema({
@@ -41,7 +42,9 @@ var userSchema = mongoose.Schema({
     minlength: 5,
   },
   dogs: [{type: Schema.Types.ObjectId, ref:'Dogs'} ]
-})
+  },
+  {usePushEach: true} 
+);
 
 // Override 'toJSON' to prevent the password from being returned with the user
 // converting to json to send to react or any front end. But the front end doesn't need to know the password

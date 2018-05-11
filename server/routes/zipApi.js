@@ -9,7 +9,7 @@ var SECRET_KEY = process.env.SECRET_KEY;
 var GSECRET_KEY = process.env.GSECRET_KEY;
 
 
-var matches;
+// var matches;
 //-----FIND ALL THE ZIPS WITHIN 5 MILE RADIUS OF USER ZIP
 router.post('/getdogsnearby', function(req, res){
 	var zip = req.body.zip;
@@ -21,12 +21,14 @@ router.post('/getdogsnearby', function(req, res){
 	let zipResults = JSON.parse(body);
 	console.log(zipResults)
 	UserDb.find({zip: {$in:zipResults.zip_codes}}).then(function(match){
-		console.log(match[0]);
-		matches = match;
+		console.log(match);
+		// matches = match;
+		res.json(match)
 	})
-	console.log('err', err)
-	console.log('body', body)
-	res.send('temporary stub from zipapi.js');
+	// console.log(matches);
+	// console.log('err', err)
+	// console.log('body', body)
+	// res.send('temporary stub from zipapi.js');
 	});
 });
 
