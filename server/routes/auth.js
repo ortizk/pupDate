@@ -12,7 +12,7 @@ router.post('/login', function(req, res) {
   console.log('/auth/login post route', req.body);
 
   // Find out if the user exists (for login, they should)
-  User.findOne({ email: req.body.email })
+  User.findOne({ email: req.body.email }).populate('dogs')
   .then(function(user){
   	if(!user || !user.password){
   		return res.status(403).send('User not found');
@@ -43,7 +43,7 @@ router.post('/login', function(req, res) {
 router.post('/signup', function(req, res) {
   console.log('/auth/signup post route', req.body);
   //TODO: First check if the user already exists
-  User.findOne({ email: req.body.email })
+  User.findOne({ email: req.body.email }).populate('dogs')
   .then(function(user){
   	//Database call was a success 
   	if(user){
@@ -77,6 +77,7 @@ router.post('/me/from/token', function(req, res) {
   console.log('find user from token', req.body);
   res.send({ user: req.user });
 });
+
 
 module.exports = router;
 

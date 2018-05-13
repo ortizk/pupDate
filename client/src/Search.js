@@ -32,19 +32,21 @@ class Search extends Component {
 
 	render() {
 		this.state.users
-		const results = this.state.users.map(users =>{
-			if(this.state.users && this.state.users.name){
-				return (
-					<div key={users.id}>
-						<h3>These are all the users in your area</h3>
-						<p>{this.state.users.name}</p>
-						<p>{this.state.users.email}</p>
-						<p>{this.state.users.dogs}</p>
-						<hr />
-					</div>
-				);
-			}
-		});
+		let results 
+		if (this.state.users !== null) {
+			results = this.state.users.map(users =>{
+				
+					return (
+						<div key={users.id}>
+							<strong><p>{users.name}</p></strong>
+							<p>{users.email}</p>
+							<p>their dogs are: {users.dogs}</p>
+							<hr />
+						</div>
+					);
+				
+			});
+		}
 		return(
 			<div>
 				<form onSubmit={this.handleSubmit}>
@@ -54,7 +56,7 @@ class Search extends Component {
 					<input type="submit" value="Get neighbouring zips" className="button" />
 				</form>
 				<div>
-					
+					{results}
 				</div>
 			</div>
 		);

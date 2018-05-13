@@ -1,21 +1,28 @@
 import React, { Component } from 'react';
 import AddDog from './addDog';
+import axios from 'axios';
 import Search from './Search';
-import Founduser from './foundUser';
+// import Founduser from './foundUser';
+import YourDogs from './YourDogs';
 
 class Profile extends Component {
+
 	render() {
 		if(this.props.user){
+			var usersDogs = Array.from(this.props.user.dogs)
+			console.log(usersDogs)
+			// if(usersDogs.length > 0){
+
+						
+			// }
 			return (
 				<div>
 					<h1>Hello again, {this.props.user.name}!</h1>
 					<h3>Your email is {this.props.user.email}</h3>
-					<AddDog user={this.props.user} />
+					{ this.props.dogs.length > 0 ? <YourDogs dogs={this.props.dogs} /> : <p>You don't have any dogs yet</p> }
+					<AddDog reFetchData={this.props.reFetchData} user={this.props.user} />
 					<h1>Search For Pups In Your Area</h1>
 					<Search />
-					<div className="searchResults">
-						<Founduser />
-					</div>
 				</div>
 			);
 		}

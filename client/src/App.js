@@ -13,7 +13,8 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      user: null
+      user: null,
+      dogs: null
     }
   }
 
@@ -23,6 +24,7 @@ class App extends Component {
     this.getUser();
   }
 
+
   getUser = () => {
     console.log('get user');
     var token = localStorage.getItem('mernToken');
@@ -30,13 +32,16 @@ class App extends Component {
     if(token){
       console.log('token found in ls', token);
       axios.post('http://localhost:3001/auth/me/from/token', {
-        headers: { 'Authorization': `Bearer ${token}` }
+        headers: { 'Authorization': `Bearer ${token}` },
+        token: token
       })
       .then(response => {
         console.log('SUCCESS', response);
         this.setState({
-          user: response.data.user
+          user: response.data.user,
+          dogs: response.data.user.dogs
         });
+        // this.refetchData();
       })
       .catch(err => {
         console.log('ERROR', err);
@@ -56,7 +61,20 @@ class App extends Component {
     }
   }
 
-
+  refetchData = () =>{
+    axios.get(`http://localhost:3001/profile/${this.state.user.id}`)
+    .then(res => {
+      // const results = res.data;
+      console.log('Success', res.data);
+      this.setState({
+        user: res.data.user,
+        dogs: res.data.dogs
+      })
+    })
+    .catch(err => {
+      console.log('error', err);
+    });
+  }
 
   render() {
     return (
@@ -73,7 +91,7 @@ class App extends Component {
               () => (<Signup user={this.state.user} updateUser={this.getUser} />)
             } />
             <Route path="/profile" component={
-              () => (<Profile user={this.state.user} />)
+              () => (<Profile user={this.state.user} dogs={this.state.dogs} reFetchData={this.refetchData}/>)
             } />
           </div>
         </Router>

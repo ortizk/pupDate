@@ -18,15 +18,39 @@ router.post('/profile', function(req, res){
 				console.log(err);
 			} 
 			else {
-			userParam.dogs.push(newDogId);
-			userParam.save();
+				userParam.dogs.push(newDogId);
+				userParam.save();
 			};
-			res.send('success');
+			res.json(userParam.dogs);
+			console.log(userParam.dogs);
 	});
 	});
 
 
 
+});
+//-----RESPONDING TO REFETCHDATA FROM APP.JS, GETS DOG LIST WITH NEWLY CREATED DOGS.
+router.get('/profile/:userId', function(req, res) {
+	console.log(req.params.userId);
+  	UserDb.findById(req.params.userId, (err, userParam) => {
+			if(err){
+				console.log(err);
+			} 
+			else {
+				console.log("this is the userParam: ", userParam) ;
+			};
+			let dogIds = userParam.dogs;
+			dogDb.find(dogIds, (err, dogs) => {
+				if(err){
+					console.log(err);
+				}
+				else {
+					console.log('got the dogs', dogs);
+				}
+				res.json({user: userParam, dogs: dogs});
+			});
+
+	});
 });
 
 

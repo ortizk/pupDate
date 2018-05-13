@@ -9,7 +9,8 @@ class AddDog extends Component {
 			dogName: '',
 			breed: '',
 			temperament: '',
-			age: ''
+			age: '',
+			dog: ''
 		};
 	}
 
@@ -40,6 +41,10 @@ class AddDog extends Component {
 		axios.post('http://localhost:3001/profile', {dog: this.state, user: this.props.user})
 		.then(result => {
 			console.log('SUCCESS', result)
+			this.setState({
+				dogs: result.data
+			})
+			this.props.reFetchData();	
 			// this.props.updateDog(); //props must be passed when AddDog element is created
 		})
 		.catch(err => {
