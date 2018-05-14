@@ -36,12 +36,14 @@ class App extends Component {
         token: token
       })
       .then(response => {
-        console.log('SUCCESS', response);
+        console.log('SUCCESS getting user', response.data);
         this.setState({
           user: response.data.user,
           dogs: response.data.user.dogs
+        }, () => {
+          this.refetchData();
         });
-        // this.refetchData();
+        
       })
       .catch(err => {
         console.log('ERROR', err);
@@ -65,10 +67,10 @@ class App extends Component {
     axios.get(`http://localhost:3001/profile/${this.state.user.id}`)
     .then(res => {
       // const results = res.data;
-      console.log('Success', res.data);
+      console.log('Success refetch:', res.data);
       this.setState({
         user: res.data.user,
-        dogs: res.data.dogs
+        dogs: res.data.user.dogs
       })
     })
     .catch(err => {
@@ -81,7 +83,7 @@ class App extends Component {
       <div className="App">
 
         <Router>
-          <div className="container">
+          <div >
             <Nav user={this.state.user} updateUser={this.getUser}/>
             <Route exact path="/" component={Home} />
             <Route path="/login" component={

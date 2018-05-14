@@ -9,8 +9,8 @@ class Profile extends Component {
 
 	render() {
 		if(this.props.user){
-			var usersDogs = Array.from(this.props.user.dogs)
-			console.log(usersDogs)
+			var usersDogs = Array.from(this.props.dogs)
+			console.log('userDogs from profile', usersDogs)
 			// if(usersDogs.length > 0){
 
 						
@@ -22,7 +22,7 @@ class Profile extends Component {
 					{ this.props.dogs.length > 0 ? <YourDogs dogs={this.props.dogs} /> : <p>You don't have any dogs yet</p> }
 					<AddDog reFetchData={this.props.reFetchData} user={this.props.user} />
 					<h1>Search For Pups In Your Area</h1>
-					<Search />
+					<Search currentUser={this.props.user} />
 				</div>
 			);
 		}

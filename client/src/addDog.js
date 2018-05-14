@@ -40,7 +40,7 @@ class AddDog extends Component {
 		console.log(user);
 		axios.post('http://localhost:3001/profile', {dog: this.state, user: this.props.user})
 		.then(result => {
-			console.log('SUCCESS', result)
+			console.log('SUCCESS after adding a dog', result.data)
 			this.setState({
 				dogs: result.data
 			})

@@ -19,10 +19,12 @@ router.post('/profile', function(req, res){
 			} 
 			else {
 				userParam.dogs.push(newDogId);
-				userParam.save();
+				userParam.save().then(userSaved => {
+					console.log('user was saved');
+					res.json(userSaved.dogs);
+				});
 			};
-			res.json(userParam.dogs);
-			console.log(userParam.dogs);
+			
 	});
 	});
 
@@ -32,23 +34,19 @@ router.post('/profile', function(req, res){
 //-----RESPONDING TO REFETCHDATA FROM APP.JS, GETS DOG LIST WITH NEWLY CREATED DOGS.
 router.get('/profile/:userId', function(req, res) {
 	console.log(req.params.userId);
-  	UserDb.findById(req.params.userId, (err, userParam) => {
-			if(err){
-				console.log(err);
-			} 
-			else {
-				console.log("this is the userParam: ", userParam) ;
-			};
-			let dogIds = userParam.dogs;
-			dogDb.find(dogIds, (err, dogs) => {
-				if(err){
-					console.log(err);
-				}
-				else {
-					console.log('got the dogs', dogs);
-				}
-				res.json({user: userParam, dogs: dogs});
-			});
+  	UserDb.findById(req.params.userId)
+  	.populate('dogs')
+  	.exec((err, userParam) => {
+		if(err){
+			console.log(err);
+		} 
+		else {
+			console.log("this is the userParam: ", userParam) ;
+		}
+
+		let dogs = userParam.dogs;
+		console.log('dogs', dogs);
+		res.json({user: userParam, dogs: userParam.dogs});
 
 	});
 });

@@ -20,10 +20,15 @@ router.post('/getdogsnearby', function(req, res){
 // -----MAKE DB CALL TO FIND USERS WITH ZIPS FROM SEARCH
 	let zipResults = JSON.parse(body);
 	console.log(zipResults)
-	UserDb.find({zip: {$in:zipResults.zip_codes}}).then(function(match){
-		console.log(match);
+	UserDb.find({zip: {$in:zipResults.zip_codes}})
+	.populate('dogs')
+	.exec(function(err, matchedUsers){
+		console.log('matched users', matchedUsers);
 		// matches = match;
-		res.json(match)
+		res.json(matchedUsers)
+	})
+	.catch(err => {
+		console.log('error happened', err);
 	})
 	// console.log(matches);
 	// console.log('err', err)

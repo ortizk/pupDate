@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import DogDisplay from './DogDisplay';
 
 	
 class Search extends Component {
@@ -19,7 +20,7 @@ class Search extends Component {
 		e.preventDefault();
 		axios.post('http://localhost:3001/getdogsnearby', {zip: this.state.zip})
 		.then(res => {
-			// const results = res.data;
+			console.log('result data nearby dogs', res.data);
 			console.log('Success from handleSubmit in Search', res.data);
 			this.setState({
 				users: res.data
@@ -30,17 +31,23 @@ class Search extends Component {
 		});
 	}
 
+	// TODO
+		// request to the dog db to get users dog info useing the Object ids stored in user.
+		// axios?
+
 	render() {
-		this.state.users
+		let currentUser = this.props.user 
+		console.log('matched users', this.state.users)
 		let results 
 		if (this.state.users !== null) {
-			results = this.state.users.map(users =>{
+			results = this.state.users.map(user =>{
 				
 					return (
-						<div key={users.id}>
-							<strong><p>{users.name}</p></strong>
-							<p>{users.email}</p>
-							<p>their dogs are: {users.dogs}</p>
+						<div key={user.id}>
+							<strong><p>{user.name}</p></strong>
+							<p>{user.email}</p>
+							<p>their dogs are:</p>
+							<DogDisplay dogs={user.dogs} owner={user.name} />
 							<hr />
 						</div>
 					);
@@ -53,7 +60,7 @@ class Search extends Component {
 					<div>
 						<input name="Zip" placeholder="Zip" value={this.state.zip} onChange={this.handleZipChange} />
 					</div>
-					<input type="submit" value="Get neighbouring zips" className="button" />
+					<input type="submit" value="Find Dogs!" className="button" />
 				</form>
 				<div>
 					{results}

@@ -34,7 +34,7 @@ var userSchema = mongoose.Schema({
   },
   state: {
     type: String,
-    required: true
+    required: false
   },
   zip: {
     type: Number,
