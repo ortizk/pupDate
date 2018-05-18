@@ -32,9 +32,6 @@ class Search extends Component {
 		});
 	}
 
-	// TODO
-		// request to the dog db to get users dog info useing the Object ids stored in user.
-		// axios?
 
 	render() {
 		let currentUser = this.props.user 
@@ -44,7 +41,7 @@ class Search extends Component {
 			results = this.state.users.map(user =>{
 				
 					return (
-						<div className="yourDogCard col s12 m3 offset-m1 z-depth-3 center" key={user.id}>
+						<div className="yourDogCard col s12 m3 offset-m2 z-depth-3 center" key={user.id}>
 							<div className='your-doggo-frame'>
 								<img className='your-doggo' src={dogImage} alt="paw" />
 							</div>
@@ -65,10 +62,15 @@ class Search extends Component {
 					<div className='col s12 m8 offset-m2 searchform'>
 						<input name="Zip" placeholder="Zip" value={this.state.zip} onChange={this.handleZipChange} />
 					</div>
+					<br />
+					<br />
+					<br />
+					<br />
+					<br />
 					<input type="submit" value="Find Dogs!" className="btn waves-effect waves-light searchbutton" />
 				</form>
 				<div className='row'>
-					<div className='doggo-display results col s12 m9 offset-m1'>
+					<div className='doggo-display results col s12 m6 offset-m3'>
 						{results}
 					</div>
 				</div>
