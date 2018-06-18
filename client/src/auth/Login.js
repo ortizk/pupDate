@@ -35,7 +35,7 @@ class Login extends Component {
 			// Udate the user with a call to App.js
 			this.props.updateUser();
 		})
-		.catch(err => {
+		.catch(err => {	
 			console.log('ERROR', err.response ? err.response.data : err);
 		});
 	}

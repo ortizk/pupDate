@@ -23,14 +23,12 @@ router.post('/profile', function(req, res){
 					console.log('user was saved');
 					res.json(userSaved.dogs);
 				});
-			};
-			
+			};	
+		});
 	});
-	});
-
-
-
 });
+
+
 //-----RESPONDING TO REFETCHDATA FROM APP.JS, GETS DOG LIST WITH NEWLY CREATED DOGS.
 router.get('/profile/:userId', function(req, res) {
 	console.log(req.params.userId);
@@ -41,15 +39,26 @@ router.get('/profile/:userId', function(req, res) {
 			console.log(err);
 		} 
 		else {
-			console.log("this is the userParam: ", userParam) ;
+			console.log("REFETCHDATA") ;
 		}
 
 		let dogs = userParam.dogs;
-		console.log('dogs', dogs);
-		res.json({user: userParam, dogs: userParam.dogs});
+		res.json({ user: userParam, dogs: userParam.dogs });
 
 	});
 });
+
+// ----- DELETING A DOG 
+router.delete('/profile', function(req.res){
+	UserDb.findById(req.params.userId, (err, user) => {
+		let i = user.dogs.indexOf(req.params.id);
+		user.dogs.splice(i, 1);
+		user.save();
+		console.log(user.dogs);
+		res.send('deleted dog')
+	})
+
+})
 
 
 

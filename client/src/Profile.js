@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import AddDog from './addDog';
-import axios from 'axios';
+// import axios from 'axios';
 import Search from './Search';
 // import Founduser from './foundUser';
 import YourDogs from './YourDogs';
@@ -18,7 +18,7 @@ class Profile extends Component {
 			return (
 				<div className="profileWelcome">
 					<h1 className='center'>Hello again, <span className='usersName'>{this.props.user.name}</span>!</h1>
-					{ this.props.dogs.length > 0 ? <YourDogs dogs={this.props.dogs} /> : <p><span className="usersName center row">You don't have any dogs yet</span></p> }
+					{ this.props.dogs.length > 0 ? <YourDogs dogs={this.props.dogs} user={this.props.user} /> : <p><span className="usersName center row">You don't have any dogs yet</span></p> }
 					<AddDog reFetchData={this.props.reFetchData} user={this.props.user} />
 					<h1 className='search-header'>Search For Pups In Your Area</h1>
 					<Search currentUser={this.props.user} />

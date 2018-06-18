@@ -7,6 +7,7 @@ var logger = require('morgan');
 var mongoose = require('mongoose');
 var path = require('path');
 var app = express();
+// var flash = require('req-flash');
 
 // Mongoose connect
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/pupdate', {useMongoClient: true});
@@ -16,6 +17,7 @@ app.use(logger('dev'));
 app.use(cors());
 app.use(bodyParser.json({limit: "50mb"}));
 app.use(bodyParser.urlencoded({extended: true}));
+// app.use(flash());
 
 // Controllers
 app.use('/', require('./routes/zipApi'));
